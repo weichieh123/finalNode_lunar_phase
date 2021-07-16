@@ -44,6 +44,8 @@ app.use('/orderlist', require(__dirname + '/routes/orderList'));
 // Tanya
 app.use('/product', require(__dirname + '/routes/product'))
 
+// Ruby
+app.use('/event', require(__dirname + '/routes/event'));
 
 // *** 此段放在所有路由設定的後面***
 app.use((req, res) => {
