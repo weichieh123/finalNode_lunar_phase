@@ -37,6 +37,7 @@ app.get('/', (req, res)=>{
     res.render('home',{items: d});
 });
 
+/* =====================大家的路由=================== */
 //J
 app.use('/cart/product/order', require(__dirname + '/routes/order'));
 app.use('/orderlist', require(__dirname + '/routes/orderList'));
@@ -46,6 +47,11 @@ app.use('/product', require(__dirname + '/routes/product'))
 
 // Ruby
 app.use('/event', require(__dirname + '/routes/event'));
+
+//Sunny
+app.use("/article", require(__dirname + "/routes/article"));
+
+/* =====================大家的路由=================== */
 
 // *** 此段放在所有路由設定的後面***
 app.use((req, res) => {
