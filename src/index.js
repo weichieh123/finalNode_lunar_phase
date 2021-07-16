@@ -1,6 +1,6 @@
 // 1. 引入express
 require('dotenv').config();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 4568;
 const express = require('express');
 const session = require('express-session');
 const MysqlStore = require('express-mysql-session')(session);
@@ -37,9 +37,12 @@ app.get('/', (req, res)=>{
     res.render('home',{items: d});
 });
 
-
+//J
 app.use('/cart/product/order', require(__dirname + '/routes/order'));
 app.use('/orderlist', require(__dirname + '/routes/orderList'));
+
+// Tanya
+app.use('/product', require(__dirname + '/routes/product'))
 
 
 // *** 此段放在所有路由設定的後面***
