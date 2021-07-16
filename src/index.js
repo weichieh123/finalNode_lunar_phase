@@ -51,6 +51,10 @@ app.use('/event', require(__dirname + '/routes/event'));
 //Sunny
 app.use("/article", require(__dirname + "/routes/article"));
 
+// Apple
+app.use('/kitset', require(__dirname + '/routes/kitset'))
+app.use('/kitcat', require(__dirname + '/routes/kitcat'))
+
 /* =====================大家的路由=================== */
 
 // *** 此段放在所有路由設定的後面***
