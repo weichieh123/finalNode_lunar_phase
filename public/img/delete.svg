@@ -1,0 +1,16 @@
+<svg id="Icon_icon-delete" data-name="Icon / icon-delete" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" viewBox="0 0 24 24">
+  <defs>
+    <clipPath id="clip-path">
+      <path id="Shape" d="M3,18a2.006,2.006,0,0,1-2-2V4H13V16a2.006,2.006,0,0,1-2,2ZM0,3V1H3.5l1-1h5l1,1H14V3Z" fill="none"/>
+    </clipPath>
+  </defs>
+  <path id="Shape-2" data-name="Shape" d="M24,0V24H0V0Z" fill="none"/>
+  <g id="Group_58" data-name="Group 58" transform="translate(5 3)">
+    <path id="Shape-3" data-name="Shape" d="M3,18a2.006,2.006,0,0,1-2-2V4H13V16a2.006,2.006,0,0,1-2,2ZM0,3V1H3.5l1-1h5l1,1H14V3Z" fill="none"/>
+    <g id="Mask_Group_58" data-name="Mask Group 58" clip-path="url(#clip-path)">
+      <g id="Icon_Fill" data-name="Icon Fill" transform="translate(-5 -3)">
+        <rect id="BG" width="24" height="24" fill="#383844"/>
+      </g>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <!-- 原則上css link放哪裡都可以，但放在!DOC之前會被html5的樣式覆蓋 -->
+    <link rel="stylesheet" href="./bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="./fontawesome/css/all.css">
+    <link rel="stylesheet" href="./index.css">
+    <style>
+        
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+        <div class="container">
+            <a class="navbar-brand" href="#">Navbar</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Link</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Dropdown
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="#">Action</a>
+                            <a class="dropdown-item" href="#">Another action</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Something else here</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                    </li>
+                </ul>
+                <form class="form-inline my-2 my-lg-0">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <i class="fas fa-trash-alt"></i>
+    </div>
+    <div class="bgMountainRow container-fluid p-0">
+        <div class="bgMountain position-absolute">
+            <img src="../public/img/bgMountain.svg" alt="">
+        </div>
+    </div>
+    
+
+    <content>
+        <div class="container-fluid">
+            <!-- 購物車流程 -->
+            <div class="col-10 px-0 d-flex mx-auto justify-content-center">
+                <div class="step">
+                    <div class="d-flex align-items-center">
+                        <i class="stepCircle stepActive"></i>
+                        <i class="stepLine"></i>
+                        <i class="stepArrow right"></i>
+                    </div>
+                    <p class="stepFont">確認購物車</p>
+                </div>
+                <div class="step">
+                    <div class="d-flex align-items-center">
+                        <i class="stepCircle "></i>
+                        <i class="stepLine"></i>
+                        <i class="stepArrow right"></i>
+                    </div>
+                    <p class="stepFont">物流選擇 </p>
+                </div>
+                <div class="step">
+                    <div class="d-flex align-items-center">
+                        <i class="stepCircle "></i>
+                        <i class="stepLine"></i>
+                        <i class="stepArrow right"></i>
+                    </div>
+                    <p class="stepFont">填寫資料</p>
+                </div>
+                <div class="step">
+                    <div class="d-flex align-items-center">
+                        <i class="stepCircle "></i>
+                    </div>
+                    <p class="stepFont">完成訂購</p>
+                </div>
+                
+            </div>
+
+            <!---------------- 確認購物車 ---------------->
+            <!-- label -->
+            <div class="col-10 mx-auto px-0">
+                <div class="myLabelGroup d-flex">
+                    <div class="labelSquare">
+                        <p class="lableName">商品</p>
+                        <div class="labelTriangle"></div>
+                    </div>
+                    <div class="labelSquare bg-light">
+                        <p class="lableName">訂閱</p>
+                        <div class="labelTriangleWhite"></div>
+                    </div>
+                    <div class="labelSquare bg-light">
+                        <p class="lableName">活動</p>
+                        <div class="labelTriangleWhite"></div>
+                    </div>
+                </div>
+            </div>
+            <!-- 全選bar -->
+            <div class="col-10 mx-auto px-0 shadow-sm ">
+                <div class="d-flex select-bar align-items-center">
+                    <input class="myRadio ml-3" type="radio" name="selectAll" id="">
+                    <h6 class="myh5 m-4">全選</h6>
+                    <!-- <img class="icon20px ml-auto mr-3" src="../public/img/delete.svg" alt=""> -->
+                    <img class="icon20px ml-auto mr-3" src="./img/delete.svg" alt="">
+                </div>
+                <!-- 商品列表 -->
+                <div class="d-flex itemRow align-items-center justify-content-between">
+                    <input class="myRadio ml-3" type="radio" name="selectOne" id="">
+                    <div class="item d-flex align-items-center mr-5">
+                        <div class="itemPic"></div>
+                        <div class="bd2">
+                            <p class="mb-0 ml-5">弦月柔棉<br>
+                                日用薄型衛生棉 15片</p>
+                        </div>
+                    </div>
+                    <div class="d-flex">
+                        <div class="bd1 p-2 ">-</div>
+                        <div class="bd1 p-2">1</div>
+                        <div class="bd1 p-2">+</div>
+                    </div>
+                    <div class="itemPrice bd1">$ 600</div>
+                </div>
+                <!-- 商品列表 -->
+                <div class="d-flex itemRow align-items-center justify-content-between">
+                    <input class="myRadio ml-3" type="radio" name="selectOne" id="">
+                    <div class="item d-flex align-items-center mr-5">
+                        <div class="itemPic"></div>
+                        <div class="bd2">
+                            <p class="mb-0 ml-5">弦月柔棉<br>
+                                日用薄型衛生棉 15片</p>
+                        </div>
+                    </div>
+                    <div class="d-flex">
+                        <div class="bd1 p-2 ">-</div>
+                        <div class="bd1 p-2">1</div>
+                        <div class="bd1 p-2">+</div>
+                    </div>
+                    <div class="itemPrice bd1">$ 600</div>
+                </div>
+            </div>
+            
+
+            <!-- 按鈕列 -->
+            <div class="col-10 mx-auto">
+                <div class="d-flex btnRow justify-content-between mb-2">
+                    <div class="primaryBtn ml-5 btnFont">上一步</div>
+                    <div class="primaryBtn mr-5 btnFont">下一步</div>
+                </div>
+            </div>
+        </div>
+    </content>
+    <!-- 放後面是為了先呈現頁面，再來套入互動的功能，才不會因為用戶頻寬不夠而畫面跑不出來 -->
+    <script src="./lib/jquery-3.6.0.js"></script>
+    <script src="./bootstrap/js/bootstrap.bundle.js"></script>
+</body>
+
+</html>

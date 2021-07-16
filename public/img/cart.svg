@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="19" height="19" viewBox="0 0 19 19">
+  <defs>
+    <clipPath id="clip-path">
+      <path id="Shape" d="M15.2,19a1.9,1.9,0,1,1,1.9-1.9A1.9,1.9,0,0,1,15.2,19ZM5.7,19a1.9,1.9,0,1,1,1.9-1.9A1.9,1.9,0,0,1,5.7,19Zm11.4-4.75H5.7a1.9,1.9,0,0,1-1.9-1.9,1.836,1.836,0,0,1,.238-.911L5.32,9.111,1.9,1.9H0V0H3.106L4,1.9H18.05a.951.951,0,0,1,.95.95.935.935,0,0,1-.114.457l-3.4,6.165a1.893,1.893,0,0,1-1.662.978H6.745L5.89,12l-.028.115a.234.234,0,0,0,.237.237h11v1.9Z" transform="translate(0 0)" fill="#383844"/>
+    </clipPath>
+  </defs>
+  <g id="Mask_Group_178" data-name="Mask Group 178" clip-path="url(#clip-path)">
+    <g id="Icon_Fill" data-name="Icon Fill" transform="translate(-0.95 -1.9)">
+      <rect id="BG" width="22.8" height="22.8" fill="#383844"/>
+    </g>
+  </g>
+</svg>
