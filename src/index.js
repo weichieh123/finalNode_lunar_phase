@@ -39,6 +39,16 @@ app.get('/', (req, res)=>{
 
 /* =====================Moana的=================== */
 
+// 登入介面
+app.get('/login', (req, res) => {
+    if(req.session.admin) {
+        res.redirect('/') //若登入轉向首頁
+    } else {
+        res.render('login')
+    }
+    res.render('login')
+})
+
 // 表單傳遞一般欄位資料
 app.post('/login',async (req, res) => {
     const output = {
@@ -51,7 +61,6 @@ app.post('/login',async (req, res) => {
     const [account] = await dbMysql2.query(sql)
 
     // 有資料，正列有長度
-    let a = ''
     if(account.length) {
         req.session.user = account[0]
         output.success = true
@@ -62,44 +71,16 @@ app.post('/login',async (req, res) => {
         res.json(output)
     }
 })
-// 會員註冊
-app.post('/register',async (req, res) => {
-    const output = {
-        success: false,
-        error: "資料不完整"
-    }
-    let sql = "SELECT `userEmail`,`userPassword` FROM `users` WHERE userEmail = " + `'${req.body.account}'`
-    // 前端欄位都有資料
-    if (req.body.account && req.body.password && req.body.confirm_password) {
-        // res.json({
-        //     acc: req.body.account,
-        //     pwd: req.body.password,
-        //     c_pwd: req.body.confirm_password
-        // })
 
-        // 前端密碼與確認密碼比對，如果沒有帳號，就新增帳號
-        if (req.body.password === req.body.confirm_password) {
-            // 前端帳號與資料庫帳號比對
-            const [account] = await dbMysql2.query(sql)
-            const data = account[0]
+// 登入介面
+app.get('/login', (req, res)=>{
+    res.render('login');
+})
 
-            if (account.length) {
-                // res.json(date)
-                output.success = false
-                output.error = '不能使用此帳號'
-                res.json(output)
-            }
-            else {
-                // 測試: SELECT `userEmail`,`userPassword` FROM `users` WHERE userEmail = 'm@gmail.com';
-                sql = "INSERT INTO `users`(`userEmail`, `userPassword`) VALUES " +`('${req.body.account}', '${req.body.password}')`
-                dbMysql2.query(sql)
-                output.success = true
-                output.error = '新增帳號'
-                res.json(output)
-            }
-        }
-    }
-    res.json(output)
+// 登出，刪掉sessionId
+app.get('/logout', (req, res) => {
+    delete req.session.admin
+    res.redirect('/')
 })
 /* =====================Moana的=================== */
 /* =====================大家的路由=================== */
