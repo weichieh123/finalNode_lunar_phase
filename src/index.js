@@ -1,6 +1,6 @@
 // 1. 引入express
 require('dotenv').config();
-const port = process.env.PORT || 4568;
+const port = process.env.PORT || 4567;
 const express = require('express');
 const session = require('express-session');
 const MysqlStore = require('express-mysql-session')(session);
