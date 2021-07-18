@@ -8,6 +8,15 @@ const db = require(__dirname + '/modules/mysql2-connect');
 const sessionStore = new MysqlStore({}, db);
 const cors = require('cors');
 
+/* Moana part */
+const fs = require('fs')
+// 檔案解析套件
+const multer = require('multer')
+const upload = multer({dest: 'tmp_uploads/'})
+const {v4 : uuidv4} = require('uuid')
+
+/* Moana part */
+
 // 2. 建立web server 物件
 const app = express();
 
@@ -38,17 +47,6 @@ app.get('/', (req, res)=>{
 });
 
 /* =====================Moana的=================== */
-
-// 登入介面
-app.get('/login', (req, res) => {
-    if(req.session.admin) {
-        res.redirect('/') //若登入轉向首頁
-    } else {
-        res.render('login')
-    }
-    res.render('login')
-})
-
 // 表單傳遞一般欄位資料
 app.post('/login',async (req, res) => {
     const output = {
@@ -61,6 +59,7 @@ app.post('/login',async (req, res) => {
     const [account] = await dbMysql2.query(sql)
 
     // 有資料，正列有長度
+    let a = ''
     if(account.length) {
         req.session.user = account[0]
         output.success = true
@@ -72,16 +71,92 @@ app.post('/login',async (req, res) => {
     }
 })
 
-// 登入介面
-app.get('/login', (req, res)=>{
-    res.render('login');
+// 會員註冊
+app.post('/register',async (req, res) => {
+    const output = {
+        success: false,
+        error: "資料不完整"
+    }
+    let sql = "SELECT `userEmail`,`userPassword` FROM `users` WHERE userEmail = " + `'${req.body.account}'`
+    // 前端欄位都有資料
+    if (req.body.account && req.body.password && req.body.confirm_password) {
+        // res.json({
+        //     acc: req.body.account,
+        //     pwd: req.body.password,
+        //     c_pwd: req.body.confirm_password
+        // })
+
+        // 前端密碼與確認密碼比對，如果沒有帳號，就新增帳號
+        if (req.body.password === req.body.confirm_password) {
+            // 前端帳號與資料庫帳號比對
+            const [account] = await dbMysql2.query(sql)
+            const data = account[0]
+
+            if (account.length) {
+                // res.json(date)
+                output.success = false
+                output.error = '不能使用此帳號'
+                res.json(output)
+            }
+            else {
+                // 測試: SELECT `userEmail`,`userPassword` FROM `users` WHERE userEmail = 'm@gmail.com';
+                sql = "INSERT INTO `users`(`userEmail`, `userPassword`) VALUES " +`('${req.body.account}', '${req.body.password}')`
+                dbMysql2.query(sql)
+                output.success = true
+                output.error = '新增帳號'
+                res.json(output)
+            }
+        }
+    }
+    res.json(output)
 })
 
-// 登出，刪掉sessionId
-app.get('/logout', (req, res) => {
-    delete req.session.admin
-    res.redirect('/')
+const extMap = {
+    'image/png': '.png',
+    'image/jpeg': '.jpg'
+}
+
+// 個人資料
+app.post('/upload-profile',upload.single('avatar') ,async (req, res) => {
+
+    let profile = {
+        email: req.body.email,
+        avatar: req.file,
+        fullname: req.body.fullname,
+        birthday: req.body.birthday,
+        phone: req.body.phone,
+        address: req.body.address,
+        gender: req.body.gender
+    }
+
+    // 大頭貼
+    let newName = ''
+    if(extMap[profile.avatar.mimetype]) {
+        newName = uuidv4() + extMap[profile.avatar.mimetype]
+        await fs.promises.rename(profile.avatar.path, './public/img/' + newName)
+        profile.avatar = newName
+    }
+
+    // 日期
+    let birthday = ''
+    if(profile.birthday) {
+        birthday = profile.birthday
+        birthday = birthday.split('-')
+        profile.birthday = birthday.join('/')
+    }
+
+    // 更新資料
+    sql = `UPDATE users \
+            SET userName='${profile.fullname}',userBirthday='${profile.birthday}',userPhone='${profile.phone}',userAddress='${profile.address}',useGender='${profile.gender}',useImg='${profile.avatar}' \
+            WHERE userEmail='${profile.email}'`
+    await dbMysql2.query(sql)
+
+    res.json({
+        success: true,
+        data: profile
+    })
 })
+
 /* =====================Moana的=================== */
 /* =====================大家的路由=================== */
 //J
