@@ -119,6 +119,11 @@ const extMap = {
 // 個人資料
 app.post('/upload-profile',upload.single('avatar') ,async (req, res) => {
 
+    const extMap = {
+        'image/png': '.png',
+        'image/jpeg': '.jpg'
+    }
+
     let profile = {
         email: req.body.email,
         avatar: req.file,
@@ -131,8 +136,8 @@ app.post('/upload-profile',upload.single('avatar') ,async (req, res) => {
 
     // 大頭貼
     let newName = ''
-    if(extMap[profile.avatar.mimetype]) {
-        newName = uuidv4() + extMap[profile.avatar.mimetype]
+    if(extMap[req.file.mimetype]) {
+        newName = uuidv4() + extMap[req.file.mimetype]
         await fs.promises.rename(profile.avatar.path, './public/img/' + newName)
         profile.avatar = newName
     }
