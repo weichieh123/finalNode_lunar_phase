@@ -1,12 +1,21 @@
 // 1. 引入express
 require('dotenv').config();
-const port = process.env.PORT || 4568;
+const port = process.env.PORT || 4567;
 const express = require('express');
 const session = require('express-session');
 const MysqlStore = require('express-mysql-session')(session);
 const db = require(__dirname + '/modules/mysql2-connect');
 const sessionStore = new MysqlStore({}, db);
 const cors = require('cors');
+
+/* Moana part */
+const fs = require('fs')
+// 檔案解析套件
+const multer = require('multer')
+const upload = multer({dest: 'tmp_uploads/'})
+const {v4 : uuidv4} = require('uuid')
+
+/* Moana part */
 
 // 2. 建立web server 物件
 const app = express();
@@ -38,7 +47,6 @@ app.get('/', (req, res)=>{
 });
 
 /* =====================Moana的=================== */
-
 // 表單傳遞一般欄位資料
 app.post('/login',async (req, res) => {
     const output = {
@@ -62,6 +70,7 @@ app.post('/login',async (req, res) => {
         res.json(output)
     }
 })
+
 // 會員註冊
 app.post('/register',async (req, res) => {
     const output = {
@@ -102,8 +111,56 @@ app.post('/register',async (req, res) => {
     res.json(output)
 })
 
+const extMap = {
+    'image/png': '.png',
+    'image/jpeg': '.jpg'
+}
 
+// 個人資料
+app.post('/upload-profile',upload.single('avatar') ,async (req, res) => {
 
+    const extMap = {
+        'image/png': '.png',
+        'image/jpeg': '.jpg'
+    }
+
+    let profile = {
+        email: req.body.email,
+        avatar: req.file,
+        fullname: req.body.fullname,
+        birthday: req.body.birthday,
+        phone: req.body.phone,
+        address: req.body.address,
+        gender: req.body.gender
+    }
+
+    // 大頭貼
+    let newName = ''
+    if(extMap[req.file.mimetype]) {
+        newName = uuidv4() + extMap[req.file.mimetype]
+        await fs.promises.rename(profile.avatar.path, './public/img/' + newName)
+        profile.avatar = newName
+    }
+
+    // 日期
+    let birthday = ''
+    if(profile.birthday) {
+        birthday = profile.birthday
+        birthday = birthday.split('-')
+        profile.birthday = birthday.join('/')
+    }
+
+    // 更新資料
+    sql = `UPDATE users \
+            SET userName='${profile.fullname}',userBirthday='${profile.birthday}',userPhone='${profile.phone}',userAddress='${profile.address}',useGender='${profile.gender}',useImg='${profile.avatar}' \
+            WHERE userEmail='${profile.email}'`
+    await db.query(sql)
+
+    res.json({
+        success: true,
+        data: profile
+    })
+})
 
 /* =====================Moana的=================== */
 /* =====================大家的路由=================== */
