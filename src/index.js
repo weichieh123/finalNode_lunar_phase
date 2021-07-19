@@ -48,7 +48,7 @@ app.post('/login',async (req, res) => {
     }
 
     const sql = "SELECT * FROM `users` WHERE " + `userEmail = '${req.body.account}' AND userPassword = '${req.body.password}'`
-    const [account] = await dbMysql2.query(sql)
+    const [account] = await db.query(sql)
 
     // 有資料，正列有長度
     let a = ''
@@ -80,7 +80,7 @@ app.post('/register',async (req, res) => {
         // 前端密碼與確認密碼比對，如果沒有帳號，就新增帳號
         if (req.body.password === req.body.confirm_password) {
             // 前端帳號與資料庫帳號比對
-            const [account] = await dbMysql2.query(sql)
+            const [account] = await db.query(sql)
             const data = account[0]
 
             if (account.length) {
@@ -92,7 +92,7 @@ app.post('/register',async (req, res) => {
             else {
                 // 測試: SELECT `userEmail`,`userPassword` FROM `users` WHERE userEmail = 'm@gmail.com';
                 sql = "INSERT INTO `users`(`userEmail`, `userPassword`) VALUES " +`('${req.body.account}', '${req.body.password}')`
-                dbMysql2.query(sql)
+                db.query(sql)
                 output.success = true
                 output.error = '新增帳號'
                 res.json(output)
@@ -101,6 +101,10 @@ app.post('/register',async (req, res) => {
     }
     res.json(output)
 })
+
+
+
+
 /* =====================Moana的=================== */
 /* =====================大家的路由=================== */
 //J
@@ -112,6 +116,7 @@ app.use('/product', require(__dirname + '/routes/product'))
 
 // Ruby
 app.use('/event', require(__dirname + '/routes/event'));
+app.use('/symptom', require(__dirname + '/routes/symptom'));
 
 //Sunny
 app.use("/article", require(__dirname + "/routes/article"));
