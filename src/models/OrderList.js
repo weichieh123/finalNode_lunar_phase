@@ -20,6 +20,7 @@ class OrderList {
             conAddress: 1,
             homeAddress: '',
             paymentType: '',
+            orCondition: '',
             created_at: '1970-01-01',
             updated_at: '1970-01-01'
         };
@@ -44,7 +45,7 @@ class OrderList {
         //     // where += ` AND (eventCategory LIKE ${k2} OR bookname LIKE ${k2}) `;
         // }
 
-        let orderStr = ''; //先給空字串
+        let orderStr = 'ORDER BY `orders_p`.`created_at` DESC'; //先給空字串
         // switch(orderBy){
         //     case 'price':
         //     case 'price-asc':
@@ -69,9 +70,18 @@ class OrderList {
         let r2, totalPages=0;
         if(total){
             totalPages = Math.ceil(total/perPage);
-            let r_sql = `SELECT * FROM \`orders_p\` ${where} ${orderStr} LIMIT ${(page-1)*perPage}, ${perPage}`;
+            let r_sql = `SELECT * FROM \`orders_p\` ${where} ${orderStr} LIMIT 10`;
             [r2] = await db.query(r_sql);
         }
+
+        // let ten_sql=`SELECT * FROM \`order_pitems\`  INNER JOIN \`orders_p\` ON \`order_pitems\`.\`orderId\` =  \`orders_p\`.\`orderId\` LEFT JOIN \`items\` ON \`order_pitems\`.\`orderItemsId\` = \`items\`.\`itemId\` 
+        // ORDER BY \`\orders_p\`.\`created_at\` DESC LIMIT 15`
+
+        // let [r3] = await db.query(ten_sql);
+        // if(!r3 || !r3.length){
+        //     return null;
+        // }
+
         return { 
             total,
             totalPages,
